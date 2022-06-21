@@ -108,7 +108,7 @@ class Collection implements IteratorAggregate, \Serializable, CollectionInterfac
      * @throws InvalidReturnValue
      * @return Traversable<TKey, TVal>
      */
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         if ($this->inputFactory) {
             $input = call_user_func($this->inputFactory);

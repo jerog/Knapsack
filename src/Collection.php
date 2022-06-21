@@ -51,6 +51,34 @@ class Collection implements IteratorAggregate, \Serializable, CollectionInterfac
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function __unserialize(array $serialized)
+    {
+        $this->input = dereferenceKeyValue($serialized);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __serialize(): array
+    {
+        return toArray(
+            map(
+                $this->input,
+                /**
+                 * @param mixed $value
+                 * @param mixed $key
+                 * @return array
+                 */
+                function ($value, $key): array {
+                    return [$key, $value];
+                }
+            )
+        );
+    }
+
+    /**
      * Static alias of normal constructor.
      *
      * @template CKey
